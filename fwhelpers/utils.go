@@ -45,8 +45,25 @@ func Decode(s string, x interface{}) error {
 
 // Utility function to pack a data model over the wire.
 // For all other types, use the Encode function.
-func PackModel(x *cty.Value) (string, error) {
-	b, err := json.Marshal(*x, cty.DynamicPseudoType)
+// Looks for the model to be passed in either of the two
+// input formats.
+func PackModel(x *cty.Value, y interface{}) (string, error) {
+	var val cty.Value
+	var err error
+
+	if x != nil {
+		val = *x
+	} else {
+		ty, err := gocty.ImpliedType(y)
+		if err != nil {
+			return "", err
+		}
+		val, err = gocty.ToCtyValue(y, ty)
+		if err != nil {
+			return "", err
+		}
+	}
+	b, err := json.Marshal(val, cty.DynamicPseudoType)
 	if err != nil {
 		return "", err
 	}

@@ -11,7 +11,9 @@ type ServiceRequest struct {
 type ServiceResponse struct {
 	TypeName         string
 	SchemaContents   string
+	StateID          string
 	StateContents    string
+	StateLastUpdated string
 	ResourceServices map[string]string
 	ResourceData     string
 	ErrorsContents   string
