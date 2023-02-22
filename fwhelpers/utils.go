@@ -44,9 +44,9 @@ func Decode(s string, x interface{}) error {
 }
 
 // Utility function to pack a data model over the wire.
-// For all other types, use the Encode function.
 // Looks for the model to be passed in either of the two
 // input formats.
+// For all other types, use the Encode function.
 func PackModel(x *cty.Value, y interface{}) (string, error) {
 	var val cty.Value
 	var err error
