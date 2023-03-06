@@ -3,6 +3,7 @@ package schema
 type ServiceRequest struct {
 	TypeName       string
 	ConfigContents string
+	PlanID         string
 	PlanContents   string
 	StateID        string
 	StateContents  string
