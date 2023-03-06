@@ -1,13 +1,16 @@
 package schema
 
 type Float64Attribute struct {
-	// Whether a value must be entered or not.
+	// Whether the value must be present in configuration or not.
 	// Both Required and Computed cannot be true.
 	Required bool
 
-	// Only the provider is able to set its value.
+	// Whether the configuration value is set by the provider or not.
 	// Both Required and Computed cannot be true.
 	Computed bool
+
+	// Whether the configuration value is optional or not.
+	Optional bool
 
 	// Plain text description that can be used in various tooling.
 	Description string
@@ -20,7 +23,7 @@ type Float64Attribute struct {
 	// Validators []Validator
 
 	// TODO Schema based modifications which can alter the plan.
-	// Modifiers []Planmodifier
+	// Modifiers []Modifier
 }
 
 type FloatAttribute = Float64Attribute
@@ -31,6 +34,10 @@ func (s FloatAttribute) IsRequired() bool {
 
 func (s FloatAttribute) IsComputed() bool {
 	return s.Computed
+}
+
+func (s FloatAttribute) IsOptional() bool {
+	return s.Optional
 }
 
 func (s FloatAttribute) GetDescription() string {

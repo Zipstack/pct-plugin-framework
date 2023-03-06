@@ -1,13 +1,16 @@
 package schema
 
 type StringAttribute struct {
-	// Whether a value must be entered or not.
+	// Whether the value must be present in configuration or not.
 	// Both Required and Computed cannot be true.
 	Required bool
 
-	// Only the provider is able to set its value.
+	// Whether the configuration value is set by the provider or not.
 	// Both Required and Computed cannot be true.
 	Computed bool
+
+	// Whether the configuration value is optional or not.
+	Optional bool
 
 	// Setting it to true will obscure the value in CLI output.
 	// It does not affect how the values are stored.
@@ -24,7 +27,7 @@ type StringAttribute struct {
 	// Validators []Validator
 
 	// TODO Schema based modifications which can alter the plan.
-	// Modifiers []Planmodifier
+	// Modifiers []Modifier
 }
 
 func (s StringAttribute) IsRequired() bool {
@@ -33,6 +36,10 @@ func (s StringAttribute) IsRequired() bool {
 
 func (s StringAttribute) IsComputed() bool {
 	return s.Computed
+}
+
+func (s StringAttribute) IsOptional() bool {
+	return s.Optional
 }
 
 func (s StringAttribute) IsSensitive() bool {

@@ -4,13 +4,16 @@ type MapAttribute struct {
 	// Definitions for the key value arguments.
 	Attributes map[string]Attribute
 
-	// Whether a value must be entered or not.
+	// Whether the value must be present in configuration or not.
 	// Both Required and Computed cannot be true.
 	Required bool
 
-	// Only the provider is able to set its value.
+	// Whether the configuration value is set by the provider or not.
 	// Both Required and Computed cannot be true.
 	Computed bool
+
+	// Whether the configuration value is optional or not.
+	Optional bool
 
 	// Plain text description that can be used in various tooling.
 	Description string
@@ -23,7 +26,7 @@ type MapAttribute struct {
 	// Validators []Validator
 
 	// TODO Schema based modifications which can alter the plan.
-	// Modifiers []Planmodifier
+	// Modifiers []Modifier
 }
 
 func (s MapAttribute) IsRequired() bool {
@@ -32,6 +35,10 @@ func (s MapAttribute) IsRequired() bool {
 
 func (s MapAttribute) IsComputed() bool {
 	return s.Computed
+}
+
+func (s MapAttribute) IsOptional() bool {
+	return s.Optional
 }
 
 func (s MapAttribute) GetDescription() string {

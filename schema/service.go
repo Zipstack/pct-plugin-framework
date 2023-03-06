@@ -4,6 +4,7 @@ type ServiceRequest struct {
 	TypeName       string
 	ConfigContents string
 	PlanContents   string
+	StateID        string
 	StateContents  string
 	ResourceData   string
 }

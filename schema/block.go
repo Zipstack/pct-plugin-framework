@@ -8,7 +8,7 @@ type NestedBlock struct {
 	// Definitions for the key value arguments.
 	Attributes map[string]Attribute
 
-	// Whether a value must be entered or not.
+	// Whether the value must be present in configuration or not.
 	Required bool
 
 	// Plain text description that can be used in various tooling.
@@ -22,7 +22,7 @@ type NestedBlock struct {
 	// Validators []Validator
 
 	// TODO Schema based modifications which can alter the plan.
-	// Modifiers []Planmodifier
+	// Modifiers []Modifier
 }
 
 func (s NestedBlock) IsRequired() bool {

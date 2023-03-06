@@ -21,8 +21,9 @@ type Schema struct {
 type Attribute interface {
 	GetDeprecationMessage() string
 	GetDescription() string
-	IsComputed() bool
 	IsRequired() bool
+	IsComputed() bool
+	IsOptional() bool
 }
 
 type Block interface {

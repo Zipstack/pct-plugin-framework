@@ -49,7 +49,7 @@ func addServices(d *gorpc.Dispatcher, pService func() schema.ProviderService, rS
 	resourceServices := make(map[string]string)
 	pTypeName := p.Metadata(&schema.ServiceRequest{}).TypeName
 	if pTypeName == "" {
-		return fmt.Errorf("Empty name in provider metadata")
+		return fmt.Errorf("empty name in provider metadata")
 	}
 	pPrefix := fmt.Sprintf("%s_", pTypeName)
 
@@ -58,14 +58,20 @@ func addServices(d *gorpc.Dispatcher, pService func() schema.ProviderService, rS
 
 		rTypeName := r.Metadata(&schema.ServiceRequest{TypeName: pTypeName}).TypeName
 		if !strings.HasPrefix(rTypeName, pPrefix) {
-			return fmt.Errorf("Resource %s name should begin with \"%s_", rTypeName, pTypeName)
+			return fmt.Errorf("resource %s name should begin with \"%s_", rTypeName, pTypeName)
 		}
 		rType := strings.TrimPrefix(rTypeName, pPrefix)
 		if rType == "" {
-			return fmt.Errorf("Resource %s name is incomplete", rTypeName)
+			return fmt.Errorf("resource %s name is incomplete", rTypeName)
 		}
 
-		rSvcName := fmt.Sprintf("%sResource", caser.String(rType))
+		words := strings.Split(rType, "_")
+		rSvcPascal := ""
+		for _, word := range words {
+			rSvcPascal += caser.String(word)
+		}
+		rSvcName := fmt.Sprintf("%sResource", rSvcPascal)
+
 		resourceServices[rTypeName] = rSvcName
 		d.AddService(rSvcName, r)
 	}
