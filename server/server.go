@@ -99,7 +99,6 @@ func Serve(pService func() schema.ProviderService, rServices []func() schema.Res
 	var addr string
 	var waitGroup sync.WaitGroup
 
-	logger.Printf("Starting provider server.")
 	waitGroup.Add(1)
 
 	sigs := make(chan os.Signal, 1)
@@ -121,9 +120,12 @@ func Serve(pService func() schema.ProviderService, rServices []func() schema.Res
 
 		server = gorpc.NewTCPServer(addr, d.NewHandlerFunc())
 		if err := server.Start(); err != nil {
-			logger.Printf("Unable to bind listener: %s", err.Error())
+			if !strings.Contains(err.Error(), "address already in use") {
+				logger.Printf("Unable to bind listener: %s", err.Error())
+			}
 			continue
 		} else {
+			logger.Printf("Starting provider server.")
 			break
 		}
 	}
