@@ -82,7 +82,11 @@ func addServices(d *gorpc.Dispatcher, pService func() schema.ProviderService, rS
 	return nil
 }
 
-func Serve(pService func() schema.ProviderService, rServices []func() schema.ResourceService) {
+func Serve(version string, pService func() schema.ProviderService, rServices []func() schema.ResourceService) {
+	if version == "" {
+		panic("Broken build: unknown version")
+	}
+
 	logger := fwhelpers.GetLogger()
 
 	// Set error logger.
@@ -133,7 +137,10 @@ func Serve(pService func() schema.ProviderService, rServices []func() schema.Res
 	if server == nil {
 		panic("Failed to start provider server")
 	} else {
+		// Send control commands.
+		logger.Printf("pctctl|ver|%s", version)
 		logger.Printf("pctctl|addr|%s", addr)
+
 		waitGroup.Wait()
 	}
 }
