@@ -8,13 +8,12 @@ import (
 	"sync"
 	"syscall"
 
+	"github.com/valyala/gorpc"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 
 	"github.com/zipstack/pct-plugin-framework/fwhelpers"
 	"github.com/zipstack/pct-plugin-framework/schema"
-
-	"github.com/valyala/gorpc"
 )
 
 const (
