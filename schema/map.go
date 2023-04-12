@@ -15,6 +15,9 @@ type MapAttribute struct {
 	// Whether the configuration value is optional or not.
 	Optional bool
 
+	// Exactly one of the given attributes should be present.
+	ExactlyOneOf []string
+
 	// Plain text description that can be used in various tooling.
 	Description string
 

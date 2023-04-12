@@ -4,7 +4,7 @@ type Schema struct {
 	// All the attributes.
 	Attributes map[string]Attribute
 
-	// All the attributes.
+	// All the blocks.
 	Blocks map[string]Block
 
 	// Plain text description that can be used in various tooling.
